@@ -17,8 +17,8 @@ python manage.py runserver
 
 # Frontend (new terminal)
 cd frontend
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 Open http://localhost:5173
@@ -28,13 +28,11 @@ Open http://localhost:5173
 ### Available
 
 - [x] **Password Generator** - Generate secure random passwords with customizable length and character types
+- [x] **Base64 Encoder/Decoder** - Encode and decode Base64 strings
+- [x] **URL Encoder/Decoder** - Encode and decode URL components
+- [x] **HTML Entity Encoder** - Convert special characters to HTML entities
 
 ### Planned
-
-#### Encoding & Decoding
-- [ ] **Base64 Encoder/Decoder** - Encode and decode Base64 strings
-- [ ] **URL Encoder/Decoder** - Encode and decode URL components
-- [ ] **HTML Entity Encoder** - Convert special characters to HTML entities
 
 #### Hashing
 - [ ] **Hash Generator** - Generate MD5, SHA-1, SHA-256, SHA-512 hashes

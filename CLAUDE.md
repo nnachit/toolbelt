@@ -4,19 +4,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Toolbelt is a collection of utility tools with a SvelteKit frontend and Django REST backend. Currently features a password generator tool.
+Toolbelt is a collection of utility tools with a SvelteKit frontend and Django REST backend. Current tools:
+
+- **Password Generator** (`/password`) — the only tool using the backend API
+- **Base64 Encoder/Decoder** (`/base64`) — client-side only
+- **URL Encoder/Decoder** (`/url-encoder`) — client-side only
+- **HTML Entity Encoder/Decoder** (`/html-entities`) — client-side only
+
+Simple transformation tools are implemented purely client-side in Svelte (no API call). Only tools requiring server-side logic (e.g., secure password generation) go through the Django backend.
 
 ## Architecture
 
-- **Frontend**: SvelteKit 2 + Svelte 5 with Tailwind CSS 4 and Flowbite components
+- **Frontend**: SvelteKit 2 + Svelte 5 with Tailwind CSS 4 and Flowbite components (`flowbite-svelte`, `flowbite-svelte-icons`)
   - Located in `frontend/`
-  - Uses pnpm as package manager
+  - Uses **pnpm only** as package manager — do not use npm or yarn (no `package-lock.json`)
   - Vite proxies `/api/*` requests to Django backend at `localhost:8000`
+  - Tool pages live in `frontend/src/routes/<tool-name>/+page.svelte`; the nav is in `+layout.svelte`
 
 - **Backend**: Django 5.2 with Django REST Framework
   - Located in `backend/`
   - Django apps are inside `backend/` (e.g., `backend/password_generator/`)
   - API endpoints mounted under URL paths (e.g., `/password/`)
+  - CORS via `django-cors-headers`: allowed origins `http://localhost:5173` and `http://127.0.0.1:5173` (configured in `backend/backend/settings.py`)
 
 ## Common Commands
 
