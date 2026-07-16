@@ -16,6 +16,8 @@ eggs/
 .eggs/
 lib/
 lib64/
+# SvelteKit source directory, not Python packaging output
+!frontend/src/lib/
 parts/
 sdist/
 var/

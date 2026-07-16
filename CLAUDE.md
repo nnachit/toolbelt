@@ -15,11 +15,12 @@ Simple transformation tools are implemented purely client-side in Svelte (no API
 
 ## Architecture
 
-- **Frontend**: SvelteKit 2 + Svelte 5 with Tailwind CSS 4 and Flowbite components (`flowbite-svelte`, `flowbite-svelte-icons`)
+- **Frontend**: SvelteKit 2 + Svelte 5 with Tailwind CSS 4 (the `flowbite` package is used only as a Tailwind plugin in `app.css` — no Flowbite components are imported)
   - Located in `frontend/`
   - Uses **pnpm only** as package manager — do not use npm or yarn (no `package-lock.json`)
   - Vite proxies `/api/*` requests to Django backend at `localhost:8000`
   - Tool pages live in `frontend/src/routes/<tool-name>/+page.svelte`; the nav is in `+layout.svelte`
+  - Encode/decode tools are thin wrappers around the shared `frontend/src/lib/components/EncoderDecoderTool.svelte` component: pass a `transform(input, mode)` function and optionally `controls`/`info`/`footer` snippets. New transformation tools should reuse it
 
 - **Backend**: Django 5.2 with Django REST Framework
   - Located in `backend/`

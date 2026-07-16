@@ -168,9 +168,11 @@ toolbelt/
 │   └── password_generator/  # Password generator app
 └── frontend/
     └── src/
+        ├── lib/
+        │   └── components/  # Shared components (EncoderDecoderTool)
         └── routes/        # SvelteKit pages
 ```
 
 ## License
 
-MIT
+GPL-3.0 — see [LICENSE](LICENSE)
