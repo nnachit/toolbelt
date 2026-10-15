@@ -39,13 +39,14 @@
   function encodeHtml(text: string, type: 'named' | 'numeric' | 'hex'): string {
     let result = '';
     for (const char of text) {
+      const codePoint = char.codePointAt(0)!;
       if (type === 'named' && namedEntities[char]) {
         result += namedEntities[char];
-      } else if (char.charCodeAt(0) > 127 || '<>&"\''.includes(char)) {
+      } else if (codePoint > 127 || '<>&"\''.includes(char)) {
         if (type === 'hex') {
-          result += `&#x${char.charCodeAt(0).toString(16)};`;
+          result += `&#x${codePoint.toString(16)};`;
         } else {
-          result += `&#${char.charCodeAt(0)};`;
+          result += `&#${codePoint};`;
         }
       } else {
         result += char;
@@ -55,23 +56,16 @@
   }
 
   function decodeHtml(text: string): string {
-    // First decode named entities
-    let result = text;
-    for (const [entity, char] of Object.entries(reverseNamedEntities)) {
-      result = result.replaceAll(entity, char);
-    }
-
-    // Then decode numeric entities (decimal)
-    result = result.replace(/&#(\d+);/g, (_, code) => {
-      return String.fromCharCode(parseInt(code, 10));
-    });
-
-    // Then decode hex entities
-    result = result.replace(/&#x([0-9a-fA-F]+);/g, (_, code) => {
-      return String.fromCharCode(parseInt(code, 16));
-    });
-
-    return result;
+    // Single pass so already-decoded output is never decoded a second time
+    // (e.g. "&amp;lt;" must yield "&lt;", not "<")
+    return text.replace(
+      /&(?:#[xX]([0-9a-fA-F]+)|#(\d+)|([a-zA-Z][a-zA-Z0-9]*));/g,
+      (match, hex, decimal, name) => {
+        if (hex) return String.fromCodePoint(parseInt(hex, 16));
+        if (decimal) return String.fromCodePoint(parseInt(decimal, 10));
+        return reverseNamedEntities[`&${name};`] ?? match;
+      }
+    );
   }
 
   function transform(input: string, mode: 'encode' | 'decode'): string {
