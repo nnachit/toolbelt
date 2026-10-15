@@ -1,38 +1,16 @@
-# sv
+# Toolbelt — frontend
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+SvelteKit 2 + Svelte 5 + Tailwind CSS 4. See the [root README](../README.md) for the project overview and
+[CLAUDE.md](../CLAUDE.md) for architecture notes.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+**pnpm only** — do not use npm or yarn.
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm install    # Install dependencies
+pnpm dev        # Dev server on :5173 (proxies /api/* to Django on :8000)
+pnpm build      # Production build
+pnpm preview    # Serve the production build
+pnpm check      # Type checking (svelte-check)
 ```
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+The backend must be running for the password tool: `cd ../backend && python manage.py runserver`.
