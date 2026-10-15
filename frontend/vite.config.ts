@@ -3,15 +3,6 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      crypto: 'crypto-browserify',
-      stream: 'stream-browserify'
-    }
-  },
-  optimizeDeps: {
-    include: ['crypto-browserify']
-  },
   plugins: [
     tailwindcss(),
     sveltekit()],
