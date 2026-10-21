@@ -11,6 +11,8 @@
     encodeError?: string;
     decodeError?: string;
     transform: (input: string, mode: Mode) => string;
+    /** Modes offered by the toggle; a single mode hides the toggle and Swap. */
+    modes?: Mode[];
     controls?: Snippet<[Mode]>;
     info?: Snippet<[Mode]>;
     footer?: Snippet;
@@ -24,6 +26,7 @@
     encodeError = 'Encoding error',
     decodeError = 'Processing error',
     transform,
+    modes = ['encode', 'decode'],
     controls,
     info,
     footer
@@ -31,7 +34,7 @@
 
   let input = $state('');
   let output = $state('');
-  let mode = $state<Mode>('encode');
+  let mode = $state<Mode>(modes[0]);
   let error = $state('');
   let copied = $state(false);
 
@@ -85,20 +88,22 @@
 
   <!-- Mode Toggle -->
   <div class="flex flex-wrap gap-4 mb-6">
-    <div class="flex gap-2">
-      <button
-        onclick={() => mode = 'encode'}
-        class="px-4 py-2 rounded-lg transition-colors {mode === 'encode' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}"
-      >
-        Encode
-      </button>
-      <button
-        onclick={() => mode = 'decode'}
-        class="px-4 py-2 rounded-lg transition-colors {mode === 'decode' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}"
-      >
-        Decode
-      </button>
-    </div>
+    {#if modes.length > 1}
+      <div class="flex gap-2">
+        <button
+          onclick={() => mode = 'encode'}
+          class="px-4 py-2 rounded-lg transition-colors {mode === 'encode' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}"
+        >
+          Encode
+        </button>
+        <button
+          onclick={() => mode = 'decode'}
+          class="px-4 py-2 rounded-lg transition-colors {mode === 'decode' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}"
+        >
+          Decode
+        </button>
+      </div>
+    {/if}
     {@render controls?.(mode)}
   </div>
 
@@ -151,16 +156,18 @@
 
   <!-- Actions -->
   <div class="flex gap-3 mt-6">
-    <button
-      onclick={swap}
-      disabled={!output}
-      class="flex items-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition-colors"
-    >
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
-      </svg>
-      Swap
-    </button>
+    {#if modes.length > 1}
+      <button
+        onclick={swap}
+        disabled={!output}
+        class="flex items-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition-colors"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+        </svg>
+        Swap
+      </button>
+    {/if}
     <button
       onclick={copyToClipboard}
       disabled={!output}

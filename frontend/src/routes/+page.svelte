@@ -43,18 +43,18 @@
       available: false
     },
     {
-      href: '#',
+      href: '/json-formatter',
       title: 'JSON Formatter',
       description: 'Format, validate, and minify JSON.',
       icon: 'json',
-      available: false
+      available: true
     },
     {
-      href: '#',
+      href: '/jwt-decoder',
       title: 'JWT Decoder',
       description: 'Decode and inspect JWT tokens.',
       icon: 'shield',
-      available: false
+      available: true
     },
   ];
 </script>

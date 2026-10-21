@@ -31,6 +31,8 @@ Open http://localhost:5173
 - [x] **Base64 Encoder/Decoder** - Encode and decode Base64 strings
 - [x] **URL Encoder/Decoder** - Encode and decode URL components
 - [x] **HTML Entity Encoder** - Convert special characters to HTML entities
+- [x] **JSON Formatter** - Format, validate, and minify JSON
+- [x] **JWT Decoder** - Decode and inspect JWT tokens
 
 ### Planned
 
@@ -46,7 +48,6 @@ Open http://localhost:5173
 - [ ] **Fake Data Generator** - Generate fake names, emails, addresses
 
 #### Formatters & Validators
-- [ ] **JSON Formatter** - Format, validate, and minify JSON
 - [ ] **JavaScript Formatter** - Format and beautify JavaScript code
 - [ ] **CSS Formatter** - Format and beautify CSS code
 - [ ] **HTML Formatter** - Format and beautify HTML code
@@ -70,7 +71,6 @@ Open http://localhost:5173
 - [ ] **Markdown Preview** - Live preview of markdown content
 
 #### Security & Crypto
-- [ ] **JWT Decoder** - Decode and inspect JWT tokens
 - [ ] **Certificate Decoder** - Parse and display X.509 certificates
 - [ ] **RSA Key Generator** - Generate RSA key pairs
 - [ ] **TOTP Generator** - Generate time-based one-time passwords

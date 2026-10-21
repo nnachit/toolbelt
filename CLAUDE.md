@@ -10,6 +10,8 @@ Toolbelt is a collection of utility tools with a SvelteKit frontend and Django R
 - **Base64 Encoder/Decoder** (`/base64`) — client-side only
 - **URL Encoder/Decoder** (`/url-encoder`) — client-side only
 - **HTML Entity Encoder/Decoder** (`/html-entities`) — client-side only
+- **JSON Formatter** (`/json-formatter`) — client-side only
+- **JWT Decoder** (`/jwt-decoder`) — client-side only, decode-only (never verifies the signature)
 
 Simple transformation tools are implemented purely client-side in Svelte (no API call). Only tools requiring server-side logic (e.g., secure password generation) go through the Django backend.
 
@@ -35,6 +37,7 @@ Simple transformation tools are implemented purely client-side in Svelte (no API
 - Required props: `title`, `description`, `encodedLabel`, `transform(input, mode)` where `mode` is `'encode' | 'decode'`
 - Optional props: `decodePlaceholder`, `encodeError`, `decodeError`
 - Snippets: `controls` and `info` are `Snippet<[Mode]>` (they receive the current mode); `footer` takes no argument
+- `modes` defaults to `['encode', 'decode']`; pass a single mode (e.g. `modes={['decode']}`, as `/jwt-decoder` does) to hide the toggle and the Swap button for one-way tools
 - Recomputation runs through a `$effect` that calls `transform`. **A custom control only triggers a recompute if `transform` itself reads that `$state`** — see `url-encoder/+page.svelte` and `html-entities/+page.svelte`
 - A `transform` that throws displays `encodeError` / `decodeError` depending on the mode
 
