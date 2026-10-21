@@ -21,7 +21,9 @@ Simple transformation tools are implemented purely client-side in Svelte (no API
   - Located in `frontend/`
   - Uses **pnpm only** as package manager — do not use npm or yarn (no `package-lock.json`)
   - Vite proxies `/api/*` requests to Django backend at `localhost:8000`
-  - Tool pages live in `frontend/src/routes/<tool-name>/+page.svelte`; the nav is in `+layout.svelte`
+  - Tool pages live in `frontend/src/routes/<tool-name>/+page.svelte`
+  - `frontend/src/lib/tools.ts` is the single source of truth for the sidebar, the home page cards and page titles: adding a tool means one entry there plus its route. Icons are drawn by `frontend/src/lib/components/ToolIcon.svelte` — a new icon means one path in its `paths` map and one name in `ToolIconName`
+  - `+layout.svelte` derives `<title>` and the meta description from the current route via `toolByPath()`, so pages must not declare their own `<svelte:head><title>`
   - Encode/decode tools are thin wrappers around the shared `frontend/src/lib/components/EncoderDecoderTool.svelte` component. New transformation tools should reuse it (see below)
 
 - **Backend**: Django 5.2 with Django REST Framework
