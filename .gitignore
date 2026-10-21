@@ -207,3 +207,8 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Claude Code
+#  Local-only: dev server launch config and per-machine permissions.
+.claude/launch.json
+.claude/settings.local.json
